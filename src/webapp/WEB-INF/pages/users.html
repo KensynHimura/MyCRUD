@@ -5,10 +5,63 @@
     <title>Users</title>
 </head>
 <body>
-<div>
-    <th:block th:each="users : ${user}">
-        <h2 th:text="${user}"></h2>
-    </th:block>
+<div th:switch="${userList}">
+    <table th:border="1" cellpadding="15">
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th bgcolor="#00008b" style="color: cornsilk">Update</th>
+            <th bgcolor="#dc143c">Delete</th>
+        </tr>
+        <tr th:each="user: ${userList}">
+        <td th:text="${user.name}">Name</td>
+        <td th:text="${user.gender}">Gender</td>
+        <td th:text="${user.age}">Age</td>
+<!--        контейнер гиперссылок-->
+            <td>
+                <a th:href="@{/update/{id}(id=${user.id})}">
+                    <input type="submit" value="Update">
+                </a>
+            </td>
+            <td>
+            <a th:href="@{/delete/{id}(id=${user.id})}">
+                <input type="submit" value="Delete">
+            </a>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <div>
+        <form>
+        <a th:href="@{/addUser}">save user</a>
+        </form>
+    </div>
+    <!--    <h2 th:case="null">No users yet!</h2>-->
+    <!--    <div th:case="*">-->
+    <!--        <h2>Users</h2>-->
+    <!--        <table>-->
+    <!--            <thead>-->
+    <!--            <tr>-->
+    <!--                <th bgcolor="#dc143c" style="color: darkslateblue">Name</th>-->
+    <!--                <th style="color: darkmagenta">Gender</th>-->
+    <!--                <th style="color: green">Age</th>-->
+    <!--                <th style="color: black">Delete</th>-->
+    <!--            </tr>-->
+    <!--            </thead>-->
+    <!--            <tbody>-->
+    <!--            <tr th:each="user : ${userList}">-->
+    <!--                <td th:text="${user.name}"></td>-->
+    <!--                <td th:text="${user.gender}"></td>-->
+    <!--                <td th:text="${user.age}"></td>-->
+    <!--&lt;!&ndash;                <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>&ndash;&gt;-->
+    <!--&lt;!&ndash;                <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>&ndash;&gt;-->
+    <!--            </tr>-->
+    <!--            </tbody>-->
+    <!--        </table>-->
+<!--</div>-->
+<!--<p><a href="/users/save">Add a new user</a></p>-->
 </div>
+
 </body>
 </html>

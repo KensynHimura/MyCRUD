@@ -6,17 +6,17 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "Gender")
+    @Column(name = "gender")
     private String gender;
 
-    @Column(name = "Age")
+    @Column(name = "age")
     private int age;
 
     @Override
