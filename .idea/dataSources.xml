@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MyCRUD/Hibernate" uuid="bcb89677-97dd-4c4c-9150-2b428e82001e">
+    <data-source source="LOCAL" name="CRUD" uuid="9e46337e-beeb-4d9e-a4e5-59bebf0ef2ab">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>Hibernate</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/my_db?useUnicode=true&amp;serverTimezone=UTC&amp;useSSL=false</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/my_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

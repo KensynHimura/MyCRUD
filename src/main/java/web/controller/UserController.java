@@ -68,6 +68,16 @@ public class UserController {
         return "redirect:/allUsers";
     }
 
+//    @GetMapping("/greeting")
+//    public String greetings(ModelMap model, ) {
+//        String name = user.getName();
+//        List<String> messages = new ArrayList<>();
+//        messages.add("Hello from Kensyn!");
+//        messages.add("It's just Test Connection");
+//        model.addAttribute("greeting", messages);
+//        return "greeting";
+//    }
+
 //    @RequestMapping("edit/{id}")
 //    public String editUser(@PathVariable("id") int id, Model model) {
 //        model.addAttribute("user", this.userService.getUserByID(id));

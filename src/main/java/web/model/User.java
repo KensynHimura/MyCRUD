@@ -5,9 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user")
     private int id;
 
     @Column(name = "name")
@@ -18,6 +18,10 @@ public class User {
 
     @Column(name = "age")
     private int age;
+
+    @JoinColumn(name = "acc_username")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Account account;
 
     @Override
     public boolean equals(Object o) {
