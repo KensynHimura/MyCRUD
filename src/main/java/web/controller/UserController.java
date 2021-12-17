@@ -1,11 +1,15 @@
 package web.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import web.dao.UserDao;
 import web.model.User;
+import web.service.UserDetailsServiceImpl;
 import web.service.UserService;
 
 import java.util.ArrayList;
@@ -15,13 +19,12 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-//    @Autowired
-//    private UserDao userDao;
 
-//    @Autowired
-//    public void setUserService(UserService userService) {
-//        this.userService = userService;
-//    }
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @GetMapping(value = "/test")
     public String printWelcome(ModelMap model) {
@@ -32,62 +35,61 @@ public class UserController {
         return "test";
     }
 
-    @RequestMapping(value = "/allUsers")
+    @GetMapping(value = "admin")
+    public String adminRoom(Model model) {
+        User user = userDao.getUserByName(SecurityContextHolder.getContext()
+                .getAuthentication().getName());
+        model.addAttribute("user", user);
+        return "admin";
+    }
+
+    @GetMapping(value = "allusers")
     public String userList(Model model) {
         List<User> userList = userService.listUsers();
         model.addAttribute("userList", userList);
-//        model.addAttribute("user", new User());
-//        model.addAttribute("listUsers", this.userService.listUsers());
         return "users";
     }
 
-    @RequestMapping(value = "/save")
-    public String saveUser(@ModelAttribute("user") User user) {
-
-        userService.saveUser(user);
-        return "redirect:/allUsers";
+    @GetMapping(value = "user")
+    public String singleUser(Model model) {
+        User user = (User) userDetailsService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("user", user);
+        return "user";
     }
 
-    @RequestMapping(value = "addUser")
+    @PostMapping(value = "/save")
+    public String saveUser(@ModelAttribute("user") User user) {
+        userService.saveUser(user);
+        return "redirect:/allusers";
+    }
+
+    @GetMapping(value = "addUser")
     public String addUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "userinfo";
     }
 
-    @RequestMapping(value = "update/{id}")
-    public String updateUser(@PathVariable("id") int id, Model model) {
-        User user = userService.getUserByID(id);
-        model.addAttribute("user", user);
-        return "userinfo";
-    }
-
-    @RequestMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") int id) {
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/allUsers";
+        return "redirect:/allusers";
     }
 
-//    @GetMapping("/greeting")
-//    public String greetings(ModelMap model, ) {
-//        String name = user.getName();
-//        List<String> messages = new ArrayList<>();
-//        messages.add("Hello from Kensyn!");
-//        messages.add("It's just Test Connection");
-//        model.addAttribute("greeting", messages);
-//        return "greeting";
-//    }
+    @GetMapping("/")
+    public String greetings(ModelMap model) {
+        model.addAttribute("greeting", ", glad to see you!");
+        return "greeting";
+    }
 
-//    @RequestMapping("edit/{id}")
-//    public String editUser(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("user", this.userService.getUserByID(id));
-//        model.addAttribute("listUsers", this.userService.listUsers());
-//        return "users";
-//    }
-
-    @RequestMapping("userinfo/{id}")
-    public String userInfo(@PathVariable("id") int id, Model model) {
+    @GetMapping("userinfo/{id}")
+    public String userInfo(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", this.userService.getUserByID(id));
         return "userinfo";
+    }
+
+    @GetMapping(value = "/denied")
+    public String dangerUser() {
+        return "denied";
     }
 }

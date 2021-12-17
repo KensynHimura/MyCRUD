@@ -11,6 +11,9 @@
             <th>Name</th>
             <th>Gender</th>
             <th>Age</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Roles</th>
             <th bgcolor="#00008b" style="color: cornsilk">Update</th>
             <th bgcolor="#dc143c">Delete</th>
         </tr>
@@ -18,9 +21,12 @@
         <td th:text="${user.name}">Name</td>
         <td th:text="${user.gender}">Gender</td>
         <td th:text="${user.age}">Age</td>
+        <td th:text="${user.username}">Username</td>
+        <td th:text="${user.password}">Password</td>
+        <td th:text="${user.roles}">Roles</td>
 <!--        контейнер гиперссылок-->
             <td>
-                <a th:href="@{/update/{id}(id=${user.id})}">
+                <a th:href="@{/userinfo/{id}(id=${user.id})}">
                     <input type="submit" value="Update">
                 </a>
             </td>
@@ -36,6 +42,11 @@
         <form>
         <a th:href="@{/addUser}">save user</a>
         </form>
+        <br> <br>
+        <form th:action="@{/logout}">
+            <input type="submit" value="Logout">
+        </form>
+
     </div>
     <!--    <h2 th:case="null">No users yet!</h2>-->
     <!--    <div th:case="*">-->

@@ -1,4 +1,5 @@
 package web.model;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -7,42 +8,59 @@ import javax.persistence.*;
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
 
-    public Role() {
-    }
     @Id
-    @GeneratedValue
     @Column(name = "role_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+    @NonNull
+    private String name;
 
-    @Column
-    private String role;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    public String getUsername() {
-        return username;
+        Role role = (Role) o;
+
+        return name.equals(role.name);
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 
-    public String getRole() {
-        return role;
+    public Role() {
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public Role(String role) {
+        this.name = role;
     }
 
-    public Role(String username, String role) {
-        this.username = username;
-        this.role = role;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String getAuthority() {
-        return role;
+        return getName();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

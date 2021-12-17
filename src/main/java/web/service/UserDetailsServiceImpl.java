@@ -8,6 +8,7 @@ import web.dao.UserDao;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
     private UserDao userDao;
 
     public UserDetailsServiceImpl(UserDao userDao) {
