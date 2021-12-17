@@ -2,10 +2,10 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
 import web.model.User;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -31,13 +31,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public User getUserByID(int id) {
         return this.userDao.getUserByID(id);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<User> listUsers() {
         return this.userDao.listUsers();
     }

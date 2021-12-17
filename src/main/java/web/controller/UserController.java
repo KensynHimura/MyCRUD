@@ -15,13 +15,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-//    @Autowired
-//    private UserDao userDao;
-
-//    @Autowired
-//    public void setUserService(UserService userService) {
-//        this.userService = userService;
-//    }
 
     @GetMapping(value = "/test")
     public String printWelcome(ModelMap model) {
@@ -32,7 +25,7 @@ public class UserController {
         return "test";
     }
 
-    @RequestMapping(value = "/allUsers")
+    @GetMapping(value = "/allUsers")
     public String userList(Model model) {
         List<User> userList = userService.listUsers();
         model.addAttribute("userList", userList);
@@ -41,28 +34,28 @@ public class UserController {
         return "users";
     }
 
-    @RequestMapping(value = "/save")
+    @PostMapping(value = "/save")
     public String saveUser(@ModelAttribute("user") User user) {
 
         userService.saveUser(user);
         return "redirect:/allUsers";
     }
 
-    @RequestMapping(value = "addUser")
+    @GetMapping(value = "addUser")
     public String addUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "userinfo";
     }
 
-    @RequestMapping(value = "update/{id}")
+    @GetMapping(value = "update/{id}")
     public String updateUser(@PathVariable("id") int id, Model model) {
         User user = userService.getUserByID(id);
         model.addAttribute("user", user);
         return "userinfo";
     }
 
-    @RequestMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") int id) {
         userService.deleteUser(id);
         return "redirect:/allUsers";
