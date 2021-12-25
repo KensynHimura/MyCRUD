@@ -6,7 +6,7 @@
     <title>New User</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/save}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/save}" th:object="${user}">
     <input type="hidden" th:field="*{id}"/>
 <!--    <input type="hidden" th:field="*{password}"/>-->
     <p><label for="name">User name: </label> <input type="text" th:field="${user.name}" id="name"/></p>
@@ -29,7 +29,7 @@
     <input type="submit" value="Ok!">
 </form>
 <br>
-<form th:action="@{/allusers}">
+<form th:action="@{/admin/allusers}">
     <input type="submit" value="Back">
 </form>
 </body>

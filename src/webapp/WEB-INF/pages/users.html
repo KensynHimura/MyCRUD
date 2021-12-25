@@ -26,12 +26,12 @@
         <td th:text="${user.roles}">Roles</td>
 <!--        контейнер гиперссылок-->
             <td>
-                <a th:href="@{/userinfo/{id}(id=${user.id})}">
+                <a th:href="@{/admin/userinfo/{id}(id=${user.id})}">
                     <input type="submit" value="Update">
                 </a>
             </td>
             <td>
-            <a th:href="@{/delete/{id}(id=${user.id})}">
+            <a th:href="@{/admin/delete/{id}(id=${user.id})}">
                 <input type="submit" value="Delete">
             </a>
             </td>
@@ -40,7 +40,7 @@
     <br>
     <div>
         <form>
-        <a th:href="@{/addUser}">save user</a>
+        <a th:href="@{/admin/addUser}">save user</a>
         </form>
         <br> <br>
         <form th:action="@{/logout}">
